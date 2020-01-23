@@ -46,7 +46,7 @@ const DiscoverBar = () => {
   return (
     <View style={styles.DiscoverBarWrapper}>
       <View style={styles.DiscoverBarSearchWrapper}>
-        <Text style={styles.DiscoverBarText}>NearBy ▼</Text>
+        <Text style={styles.DiscoverBarText}>Near ▼</Text>
       </View>
       <View style={styles.DiscoverBarMapWrapper}>
         <Text style={styles.DiscoverBarText}>Map</Text>
@@ -75,10 +75,6 @@ const DiscoverContainer = () => {
 
 const styles = StyleSheet.create({
   container: {
-    // paddingHorizontal: 20,
-    // display: 'flex'
-    // backgroundColor: 'green'
-    
   },
   headerContainer: {
     paddingHorizontal: 20,

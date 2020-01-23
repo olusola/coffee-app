@@ -1,35 +1,46 @@
 import React from 'react'
-import { useNavigation } from 'react-navigation-hooks'
 
 import {
   View,
   Button,
   Text,
-  SafeAreaView
-} from 'react-native';
+  StyleSheet
+} from 'react-native'
+import { useSafeArea } from 'react-native-safe-area-context'
+import StoreDetailsHeader from '../../components/StoreDetailsHeader/StoreDetailsHeader';
+import StoreMenu from '../../components/StoreMenu/StoreMenu';
 
-
-const StoreDetailsHeader = () => {
+const StoreDetailsBody = () => {
   return (
-    <View>
-      <Text>store hedfdf</Text>
+    <View style={styles.sdbContainer}>
+      <StoreMenu/>
     </View>
   )
 }
+
 const StoreDetailsContainer = () => {
-  const navigation  = useNavigation();
+  const insets = useSafeArea()
   return (
-    <SafeAreaView>
-    <Text>hvhv</Text>
-    <StoreDetailsHeader/>
-    <Button
-      title="Back"
-      onPress={() => {
-        navigation.goBack();
-      }}
-    />
-  </SafeAreaView>
+    <View style={{ paddingTop: insets.top, flex:1 }}>
+      <StoreDetailsHeader/>
+      <StoreDetailsBody/>
+    </View>
   )
 }
+
+const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: 'red',
+  },
+  sdhContainer: {
+    backgroundColor: '#ffffff',
+    flex: 1,
+  },
+  sdbContainer: {
+    backgroundColor: '#f3f5fa',
+    flex: 4
+  }
+})
 
 export default StoreDetailsContainer
