@@ -1,4 +1,5 @@
-import React from 'react';
+import React from 'react'
+import { useDispatch } from 'react-redux';
 import {
   SafeAreaView,
   View,
@@ -7,15 +8,18 @@ import {
   FlatList,
   Image,
   TouchableWithoutFeedback
-} from 'react-native';
+} from 'react-native'
+
+import { connect } from 'react-redux'
+import { deleteMe } from '../../redux/actions/store/'
+import { bindActionCreators } from 'redux'
 
 import { withNavigation } from 'react-navigation'
 import { useNavigation } from 'react-navigation-hooks'
-import cafeList from '../../mock/cafeList.json';
+import cafeList from '../../mock/cafeList.json'
 
 const CafeListcard = ({item:{item: {name}, index}}) => {
   const { navigate } = useNavigation()
-  console.log(navigate,'hello')
   return (
       <TouchableWithoutFeedback onPress={() => navigate('Details')}>
         <View key={index} style={styles.cafeListCardWrapper}>
@@ -37,7 +41,6 @@ const CafeListcard = ({item:{item: {name}, index}}) => {
           </View>
         </View>
       </TouchableWithoutFeedback>
-    
   )
 }
 
@@ -49,18 +52,23 @@ const DiscoverBar = () => {
         <Text style={styles.DiscoverBarText}>Near ▼</Text>
       </View>
       <View style={styles.DiscoverBarMapWrapper}>
-        <Text style={styles.DiscoverBarText}>Map</Text>
+        <Text style={styles.DiscoverBarText} >Map</Text>
       </View>
     </View>
   )
 }
 
 const DiscoverContainer = () => {
+  const dispatch = useDispatch()
+
   return (
     <SafeAreaView forceInset={{top: 'never'}}>
         <View style={styles.container}>
           <View style={styles.headerContainer}>
             <DiscoverBar/>
+            <Text style={styles.DiscoverBarText} onPress={() =>
+               dispatch(deleteMe('world'))
+              }>Map</Text>
           </View>
           <View style={styles.bodyContainer}>
             <FlatList
@@ -138,4 +146,16 @@ const styles = StyleSheet.create({
     padding: 2
   }
 })
-export default withNavigation(DiscoverContainer)
+
+const mapStateToProps = state => {
+  return {
+    demo: state
+  }
+}
+
+const mapDispatchToProps = dispatch => (
+  bindActionCreators({
+    deleteMe
+  }, dispatch)
+)
+export default withNavigation(connect( mapStateToProps, mapDispatchToProps)(DiscoverContainer))
